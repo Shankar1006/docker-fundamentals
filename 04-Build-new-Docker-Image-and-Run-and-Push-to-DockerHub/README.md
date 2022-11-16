@@ -9,17 +9,25 @@
 ## Step-1: Run the base Nginx container
 - Access the URL http://localhost
 ```
-docker run --name mynginxdefault -p 80:80 -d nginx
+docker run --name mynginxdefault -p 80:80 -d nginx   //it downloads nginx image from dockerhub
 docker ps
 docker stop mynginxdefault
 ```
 
 ## Step-2: Create Dockerfile and copy our customized index.html
+// goto any folder-->mkdir nginx-image
+   cd nginx-image 
+   vi Dockerfile
+   "copy and paste code given below"
+   esc-->:wq!
 - **Dockerfile**
 ```
 FROM nginx
 COPY index.html /usr/share/nginx/html
 ```
+// vi index.html
+   write anything you wish!
+   esc -->:wq!
 
 ## Step-3: Build Docker Image & run it
 ```
@@ -29,17 +37,18 @@ docker run --name mynginx1 -p 80:80 -d stacksimplify/mynginx_image1:v1
 Replace your docker hub account Id
 docker build -t <your-docker-hub-id>/mynginx_image1:v1 .
 docker run --name mynginx1 -p 80:80 -d <your-docker-hub-id>/mynginx_image1:v1
+//you can see output at localhost.com
 ```
 
 ## Step-4: Tag & push the Docker image to docker hub
 ```
 docker images
-docker tag stacksimplify/mynginx_image1:v1 stacksimplify/mynginx_image1:v1-release
-docker push stacksimplify/mynginx_image1:v1-release
+docker tag stacksimplify/mynginx_image1:v1 stacksimplify/mynginx_image1:v1-release  //changing name
+docker push stacksimplify/mynginx_image1:v1-release    //pushed to Dockerhub
 
 Replace your docker hub account Id
 docker tag <your-docker-hub-id>/mynginx_image1:v1 <your-docker-hub-id>/mynginx_image1:v1-release
-docker push <your-docker-hub-id>/mynginx_image1:v1-release
+docker push <your-docker-hub-id>/mynginx_image1:v1-release 
 ```
 ## Step-5: Verify the same on docker hub
 - Login to docker hub and verify the image we have pushed
